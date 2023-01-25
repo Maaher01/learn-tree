@@ -1,1 +1,40 @@
-<p>register works!</p>
+<form [formGroup]="studentRegister" (ngSubmit)="registerStudent()">
+    <h1>Register</h1>
+    <div *ngIf="errorResponse">
+        <p>{{ errorResponse }}</p>
+    </div>
+    <label for="name">Name</label>
+    <input type="text" placeholder="Enter name..." formControlName="name" id="name" name="name" />
+    <div
+        *ngIf="(studentRegister.controls['name']?.dirty || studentRegister.controls['name']?.touched) && studentRegister.controls['name'].invalid">
+        <small *ngIf="studentRegister.controls['name']?.hasError('required')">
+            Username is required
+        </small>
+        <small *ngIf="studentRegister.controls['name']?.hasError('minLength')">
+            Username must contain atleast 3 characters
+        </small>
+    </div>
+    <label for="email">Email</label>
+    <input type="email" placeholder="Enter email..." formControlName="email" id="email" name="email" />
+    <div
+        *ngIf="(studentRegister.controls['email']?.dirty || studentRegister.controls['email']?.touched) && studentRegister.controls['email'].invalid">
+        <small *ngIf="studentRegister.controls['email']?.hasError('email')">
+            Please enter a valid email
+        </small>
+        <small *ngIf="studentRegister.controls['email']?.hasError('required')">
+            Email is required
+        </small>
+    </div>
+    <label for="password">Password</label>
+    <input type="password" placeholder="Enter password..." formControlName="password" id="password" name="password" />
+    <div
+        *ngIf="(studentRegister.controls['password']?.dirty || studentRegister.controls['password']?.touched) && studentRegister.controls['password'].invalid">
+        <small *ngIf="studentRegister.controls['password']?.hasError('required')">
+            Password is required
+        </small>
+        <small
+            *ngIf="(studentRegister.controls['password']?.hasError('minLength') || studentRegister.controls['password']?.hasError('maxLength'))">
+            Please enter a password between 3 to 11 characters
+        </small>
+    </div>
+</form>
