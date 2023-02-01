@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegisterComponent } from './register.component';
 import { RouterModule, Routes } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './register.component';
+import { AuthGuard } from '../guards/auth/auth.guard';
 
 const routes: Routes = [
-  { path: 'teacher/register', component: RegisterComponent },
-  { path: 'student/register', component: RegisterComponent }
+  { path: 'teacher/register', component: RegisterComponent, canActivate: [AuthGuard] },
+  { path: 'student/register', component: RegisterComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
@@ -16,7 +17,11 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forRoot(routes),
+    FormsModule,
     ReactiveFormsModule
+  ],
+  exports: [
+    RouterModule
   ]
 })
 export class RegisterModule { }

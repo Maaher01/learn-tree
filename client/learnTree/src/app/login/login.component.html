@@ -1,1 +1,29 @@
-<p>login works!</p>
+<!-- Student Login Form -->
+<form [formGroup]="studentLogin" (ngSubmit)="loginStudent()">
+    <h1>Student Login</h1>
+    <div *ngIf="errorResponse">
+        <strong>{{errorResponse}}</strong>
+    </div>
+    <label for="email">Email</label>
+    <input type="email" placeholder="Enter Email..." formControlName="email" id="email" name="email">
+    <label for="password">Password</label>
+    <input type="password" placeholder="Enter Password..." formControlName="password" id="password" name="password">
+    <button [disabled]="studentLogin.invalid">Log In</button>
+    <p>Don't have an account? Click here to <a [routerLink]="['/student/register']">Sign Up</a></p>
+    <p>Forgot Password?</p>
+</form>
+
+<!-- Teacher Login Form -->
+<form [formGroup]="teacherLogin" (ngSubmit)="loginTeacher()">
+    <h1>Teacher Login</h1>
+    <div *ngIf="errorResponse">
+        <strong>{{errorResponse}}</strong>
+    </div>
+    <label for="email">Email</label>
+    <input type="email" placeholder="Enter Email..." formControlName="email" id="email" name="email">
+    <label for="password">Password</label>
+    <input type="password" placeholder="Enter Password..." formControlName="password" id="password" name="password">
+    <button [disabled]="teacherLogin.invalid">Log In</button>
+    <p>Don't have an account? Click here to <a [routerLink]="['/teacher/register']">Sign Up</a></p>
+    <p>Forgot Password?</p>
+</form>

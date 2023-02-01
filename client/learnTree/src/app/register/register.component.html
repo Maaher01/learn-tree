@@ -1,7 +1,8 @@
+<!-- Student registration form -->
 <form [formGroup]="studentRegister" (ngSubmit)="registerStudent()">
-    <h1>Register</h1>
+    <h1>Student Register</h1>
     <div *ngIf="errorResponse">
-        <p>{{ errorResponse }}</p>
+        <strong>{{ errorResponse }}</strong>
     </div>
     <label for="name">Name</label>
     <input type="text" placeholder="Enter name..." formControlName="name" id="name" name="name" />
@@ -11,7 +12,7 @@
             Username is required
         </small>
         <small *ngIf="studentRegister.controls['name']?.hasError('minLength')">
-            Username must contain atleast 3 characters
+            Username must contain atleast 3 letters
         </small>
     </div>
     <label for="email">Email</label>
@@ -36,5 +37,221 @@
             *ngIf="(studentRegister.controls['password']?.hasError('minLength') || studentRegister.controls['password']?.hasError('maxLength'))">
             Please enter a password between 3 to 11 characters
         </small>
+    </div>
+    <label for="department">Department</label>
+    <input type="text" placeholder="Enter department..." formControlName="department" id="department"
+        name="department" />
+    <div
+        *ngIf="(studentRegister.controls['department']?.dirty || studentRegister.controls['department']?.touched) && studentRegister.controls['department'].invalid">
+        <small *ngIf="studentRegister.controls['department']?.hasError('required')">
+            Department name is required
+        </small>
+        <small *ngIf="studentRegister.controls['department']?.hasError('minLength')">
+            Department name must have atleast 2 characters
+        </small>
+    </div>
+    <label for="semester">Semester No.</label>
+    <input type="number" placeholder="Enter semester..." formControlName="semester" id="semester" name="semester" />
+    <div
+        *ngIf="(studentRegister.controls['semester']?.dirty || studentRegister.controls['semester']?.touched) && studentRegister.controls['semester'].invalid">
+        <small *ngIf="studentRegister.controls['department']?.hasError('required')">
+            Semester number is required
+        </small>
+        <small *ngIf="studentRegister.controls['department']?.hasError('min')">
+            Semester number cannot be less than 1.
+        </small>
+        <small *ngIf="studentRegister.controls['department']?.hasError('max')">
+            Semester number cannot be more than 24.
+        </small>
+    </div>
+    <label for="cgpa">Current CGPA</label>
+    <input type="number" placeholder="Enter current cgpa..." formControlName="cgpa" id="cgpa" name="cgpa" />
+    <label for="mobile">Mobile No.</label>
+    <input type="text" placeholder="Enter mobile no..." formControlName="mobile" id="mobile" name="mobile" />
+    <div
+        *ngIf="(studentRegister.controls['mobile']?.dirty || studentRegister.controls['mobile']?.touched) && studentRegister.controls['mobile'].invalid">
+        <small *ngIf="studentRegister.controls['mobile']?.hasError('required')">
+            Mobile number is required
+        </small>
+        <small *ngIf="studentRegister.controls['mobile']?.hasError('minLength')">
+            Mobile number must have atleast 11 digits.
+        </small>
+        <small *ngIf="studentRegister.controls['mobile']?.hasError('maxLength')">
+            Mobile number cannot have more than 14 characters.
+        </small>
+    </div>
+    <label for="mobile">Date of Birth</label>
+    <input type="date" min="1993-1-1" max="2004-12-31" placeholder="Enter date of birth..." formControlName="birth_date"
+        id="birth_date" name="birth_date" />
+    <div *ngIf="studentRegister.controls['birth_date']?.touched">
+        <small *ngIf="studentRegister.controls['mobile']?.hasError('required')">
+            Birth date is required
+        </small>
+    </div>
+    <label for="gender">Gender</label>
+    <select placeholder="Choose gender..." formControlName="gender" id="gender" name="gender">
+        <option>Male</option>
+        <option>Female</option>
+        <option>Others</option>
+    </select>
+    <div
+        *ngIf="(studentRegister.controls['gender']?.dirty || studentRegister.controls['gender']?.touched) && studentRegister.controls['gender'].invalid">
+        <small *ngIf="!!studentRegister.controls['gender']?.hasError('required')">
+            Gender is required
+        </small>
+    </div>
+    <label for="address">Address</label>
+    <input type="text" placeholder="Enter address..." formControlName="address" id="address" name="address" />
+    <div
+        *ngIf="(studentRegister.controls['address']?.dirty || studentRegister.controls['address']?.touched) && studentRegister.controls['address'].invalid">
+        <small *ngIf="studentRegister.controls['address']?.hasError('required')">
+            Address is required
+        </small>
+        <small *ngIf="studentRegister.controls['mobile']?.hasError('minLength')">
+            Address cannot have less than 4 characters
+        </small>
+    </div>
+    <label for="father_name">Father's Name</label>
+    <input type="text" placeholder="Enter father's name..." formControlName="father_name" id="father_name"
+        name="father_name" />
+    <div
+        *ngIf="(studentRegister.controls['father_name']?.dirty || studentRegister.controls['father_name']?.touched) && studentRegister.controls['father_name'].invalid">
+        <small *ngIf="studentRegister.controls['father_name']?.hasError('required')">
+            Father's name is required
+        </small>
+        <small *ngIf="studentRegister.controls['father_name']?.hasError('minLength')">
+            Father's name must contain atleast 3 letters
+        </small>
+    </div>
+    <label for="mother_name">Mother's Name</label>
+    <input type="text" placeholder="Enter mother's name..." formControlName="mother_name" id="mother_name"
+        name="mother_name" />
+    <div
+        *ngIf="(studentRegister.controls['mother_name']?.dirty || studentRegister.controls['mother_name']?.touched) && studentRegister.controls['mother_name'].invalid">
+        <small *ngIf="studentRegister.controls['mother_name']?.hasError('required')">
+            Mother's name is required
+        </small>
+        <small *ngIf="studentRegister.controls['mother_name']?.hasError('minLength')">
+            Mother's name must contain atleast 3 letters
+        </small>
+    </div>
+    <div>
+        <button [disabled]="studentRegister.invalid">
+            Register
+        </button>
+    </div>
+    <div>
+        <p>
+            Already have an account? Click here to <a [routerLink]="['/student/login']">Log In</a>
+        </p>
+    </div>
+</form>
+
+<!-- Teacher's registration form -->
+<form [formGroup]="teacherRegister" (ngSubmit)="registerTeacher()">
+    <h1>Teacher Register</h1>
+    <div *ngIf="errorResponse">
+        <strong>{{ errorResponse }}</strong>
+    </div>
+    <label for="name">Name</label>
+    <input type="text" placeholder="Enter name..." formControlName="name" id="name" name="name" />
+    <div
+        *ngIf="(teacherRegister.controls['name']?.dirty || teacherRegister.controls['name']?.touched) && teacherRegister.controls['name'].invalid">
+        <small *ngIf="teacherRegister.controls['name']?.hasError('required')">
+            Username is required
+        </small>
+        <small *ngIf="teacherRegister.controls['name']?.hasError('minLength')">
+            Username must contain atleast 3 letters
+        </small>
+    </div>
+    <label for="email">Email</label>
+    <input type="email" placeholder="Enter email..." formControlName="email" id="email" name="email" />
+    <div
+        *ngIf="(teacherRegister.controls['email']?.dirty || teacherRegister.controls['email']?.touched) && teacherRegister.controls['email'].invalid">
+        <small *ngIf="teacherRegister.controls['email']?.hasError('email')">
+            Please enter a valid email
+        </small>
+        <small *ngIf="teacherRegister.controls['email']?.hasError('required')">
+            Email is required
+        </small>
+    </div>
+    <label for="password">Password</label>
+    <input type="password" placeholder="Enter password..." formControlName="password" id="password" name="password" />
+    <div
+        *ngIf="(teacherRegister.controls['password']?.dirty || teacherRegister.controls['password']?.touched) && teacherRegister.controls['password'].invalid">
+        <small *ngIf="teacherRegister.controls['password']?.hasError('required')">
+            Password is required
+        </small>
+        <small
+            *ngIf="(teacherRegister.controls['password']?.hasError('minLength') || teacherRegister.controls['password']?.hasError('maxLength'))">
+            Please enter a password between 3 to 11 characters
+        </small>
+    </div>
+    <label for="department">Department</label>
+    <input type="text" placeholder="Enter department..." formControlName="department" id="department"
+        name="department" />
+    <div
+        *ngIf="(teacherRegister.controls['department']?.dirty || teacherRegister.controls['department']?.touched) && teacherRegister.controls['department'].invalid">
+        <small *ngIf="teacherRegister.controls['department']?.hasError('required')">
+            Department name is required
+        </small>
+        <small *ngIf="teacherRegister.controls['department']?.hasError('minLength')">
+            Department name must have atleast 2 characters
+        </small>
+    </div>
+    <label for="mobile">Mobile No.</label>
+    <input type="text" placeholder="Enter mobile no..." formControlName="mobile" id="mobile" name="mobile" />
+    <div
+        *ngIf="(teacherRegister.controls['mobile']?.dirty || teacherRegister.controls['mobile']?.touched) && teacherRegister.controls['mobile'].invalid">
+        <small *ngIf="teacherRegister.controls['mobile']?.hasError('required')">
+            Mobile number is required
+        </small>
+        <small *ngIf="teacherRegister.controls['mobile']?.hasError('minLength')">
+            Mobile number must have atleast 11 digits.
+        </small>
+        <small *ngIf="teacherRegister.controls['mobile']?.hasError('maxLength')">
+            Mobile number cannot have more than 14 characters.
+        </small>
+    </div>
+    <label for="mobile">Date of Birth</label>
+    <input type="date" placeholder="Enter date of birth..." formControlName="birth_date" id="birth_date"
+        name="birth_date" />
+    <div *ngIf="teacherRegister.controls['birth_date']?.touched">
+        <small *ngIf="teacherRegister.controls['mobile']?.hasError('required')">
+            Birth date is required
+        </small>
+    </div>
+    <label for="gender">Gender</label>
+    <select placeholder="Choose gender..." formControlName="gender" id="gender" name="gender">
+        <option>Male</option>
+        <option>Female</option>
+        <option>Others</option>
+    </select>
+    <div
+        *ngIf="(teacherRegister.controls['gender']?.dirty || teacherRegister.controls['gender']?.touched) && teacherRegister.controls['gender'].invalid">
+        <small *ngIf="!!teacherRegister.controls['gender']?.hasError('required')">
+            Gender is required
+        </small>
+    </div>
+    <label for="address">Address</label>
+    <input type="text" placeholder="Enter address..." formControlName="address" id="address" name="address" />
+    <div
+        *ngIf="(teacherRegister.controls['address']?.dirty || teacherRegister.controls['address']?.touched) && teacherRegister.controls['address'].invalid">
+        <small *ngIf="teacherRegister.controls['address']?.hasError('required')">
+            Address is required
+        </small>
+        <small *ngIf="teacherRegister.controls['mobile']?.hasError('minLength')">
+            Address cannot have less than 4 characters
+        </small>
+    </div>
+    <div>
+        <button [disabled]="teacherRegister.invalid">
+            Register
+        </button>
+    </div>
+    <div>
+        <p>
+            Already have an account? Click here to <a [routerLink]="['/teacher/login']">Log In</a>
+        </p>
     </div>
 </form>
