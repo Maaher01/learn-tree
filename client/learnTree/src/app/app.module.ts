@@ -7,6 +7,8 @@ import { RegisterModule } from './register/register.module';
 import { LoginModule } from './login/login.module';
 import { HomeComponent } from './home/home.component';
 import { ForgotPasswordModule } from './forgot-password/forgot-password.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { ForgotPasswordModule } from './forgot-password/forgot-password.module';
     AppRoutingModule,
     RegisterModule,
     LoginModule,
-    ForgotPasswordModule
+    ForgotPasswordModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

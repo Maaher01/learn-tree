@@ -1,29 +1,62 @@
-<!-- Student Login Form -->
-<form [formGroup]="studentLogin" (ngSubmit)="loginStudent()">
-    <h1>Student Login</h1>
-    <div *ngIf="errorResponse">
-        <strong>{{errorResponse}}</strong>
-    </div>
-    <label for="email">Email</label>
-    <input type="email" placeholder="Enter Email..." formControlName="email" id="email" name="email">
-    <label for="password">Password</label>
-    <input type="password" placeholder="Enter Password..." formControlName="password" id="password" name="password">
-    <button [disabled]="studentLogin.invalid">Log In</button>
-    <p>Don't have an account? Click here to <a [routerLink]="['/student/register']">Sign Up</a></p>
-    <p>Forgot Password?</p>
-</form>
+<!-- Login Forms -->
+<div
+    class="bg-slate-200 grid lg:grid-cols-2 md:grid-cols-1 lg:gap-16 sm:gap-12 place-content-center 2xl:px-96 xl:px-64 lg:px-24 md:px-36 sm:px-12 lg:pt-28 lg:pb-80 md:py-16 sm:py-12">
+    <!-- Student Login Form -->
+    <form class="bg-slate-50 shadow-2xl px-6 py-12 rounded-lg" [formGroup]="studentLogin" (ngSubmit)="loginStudent()">
+        <p class="text-2xl font-medium mb-6">Student Login</p>
+        <div class="flex flex-col py-3">
+            <label class="font-medium text-sm mb-1" for="email">Email</label>
+            <input class="bg-slate-200 px-4 py-3 rounded-lg" type="email" placeholder="Enter Email..."
+                formControlName="email" id="student_email" name="email">
+        </div>
+        <div class="flex flex-col py-3">
+            <label class="font-medium text-sm mb-1" for="password">Password</label>
+            <input class="bg-slate-200 px-4 py-3 rounded-lg" type="password" placeholder="Enter Password..."
+                formControlName="password" id="student_password" name="password">
+        </div>
+        <div class="w-full bg-red-200 px-4 py-3 rounded-lg my-7" *ngIf="errorResponse">
+            <strong class="text-sm text-center text-red-700">{{errorResponse}}</strong>
+        </div>
+        <div class="mt-10 mb-4">
+            <button class="bg-cyan-800 hover:bg-cyan-900 cursor-pointer text-white text-sm w-full rounded-lg px-4 py-3"
+                [disabled]="studentLogin.invalid">
+                Log In
+            </button>
+        </div>
+        <div class="text-center">
+            <p class="font-medium text-sm">Don't have an account? Click here to
+                <a class="font-extrabold" [routerLink]="['/student/register']">Sign Up</a>
+            </p>
+            <a class="font-extrabold text-sm" [routerLink]="['/student/forgot-password']">Forgot Password?</a>
+        </div>
+    </form>
 
-<!-- Teacher Login Form -->
-<form [formGroup]="teacherLogin" (ngSubmit)="loginTeacher()">
-    <h1>Teacher Login</h1>
-    <div *ngIf="errorResponse">
-        <strong>{{errorResponse}}</strong>
-    </div>
-    <label for="email">Email</label>
-    <input type="email" placeholder="Enter Email..." formControlName="email" id="email" name="email">
-    <label for="password">Password</label>
-    <input type="password" placeholder="Enter Password..." formControlName="password" id="password" name="password">
-    <button [disabled]="teacherLogin.invalid">Log In</button>
-    <p>Don't have an account? Click here to <a [routerLink]="['/teacher/register']">Sign Up</a></p>
-    <p>Forgot Password?</p>
-</form>
+    <!-- Teacher Login Form -->
+    <form class="bg-slate-50 shadow-2xl rounded-lg px-6 py-12" [formGroup]="teacherLogin" (ngSubmit)="loginTeacher()">
+        <p class="text-2xl font-medium mb-6">Teacher Login</p>
+        <div class="flex flex-col py-3">
+            <label class="font-medium text-sm mb-1" for="email">Email</label>
+            <input class="bg-slate-200 px-4 py-3 rounded-lg" type="email" placeholder="Enter Email..."
+                formControlName="email" id="teacher_email" name="email">
+        </div>
+        <div class="flex flex-col py-3">
+            <label class="font-medium text-sm mb-1" for="password">Password</label>
+            <input class="bg-slate-200 px-4 py-3 rounded-lg" type="password" placeholder="Enter Password..."
+                formControlName="password" id="teacher_password" name="password">
+        </div>
+        <div class="w-full bg-red-200 px-4 py-3 rounded-lg my-7" *ngIf="errorResponse">
+            <strong class="text-sm text-center text-red-700">{{errorResponse}}</strong>
+        </div>
+        <div class="mt-10 mb-4">
+            <button class="bg-cyan-800 hover:bg-cyan-900 cursor-pointer text-white text-sm w-full rounded-lg px-4 py-3"
+                [disabled]="teacherLogin.invalid">Log
+                In</button>
+        </div>
+        <div class="text-center">
+            <p class="font-medium text-sm">Don't have an account? Click here to
+                <a class="font-extrabold" [routerLink]="['/teacher/register']">Sign Up</a>
+            </p>
+            <a class="font-extrabold text-sm" [routerLink]="['/teacher/forgot-password']">Forgot Password?</a>
+        </div>
+    </form>
+</div>

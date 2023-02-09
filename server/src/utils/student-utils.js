@@ -15,8 +15,6 @@ const createStudent = async ({
 	name,
 	email,
 	hashedPassword: password,
-	department,
-	semester,
 	cgpa,
 	mobile,
 	birth_date,
@@ -26,13 +24,11 @@ const createStudent = async ({
 	mother_name,
 }) => {
 	const { rows } = await pool.query(
-		"INSERT INTO students (name, email, password, department, semester, cgpa, mobile, birth_date, gender, address, father_name, mother_name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *",
+		"INSERT INTO students (name, email, password, cgpa, mobile, birth_date, gender, address, father_name, mother_name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *",
 		[
 			name,
 			email,
 			password,
-			department,
-			semester,
 			cgpa,
 			mobile,
 			birth_date,

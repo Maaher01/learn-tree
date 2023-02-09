@@ -7,8 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from '../guards/auth/auth.guard';
 
 const routes: Routes = [
-  { path: 'student/login', component: LoginComponent, canActivate: [AuthGuard] },
-  { path: 'teacher/login', component: LoginComponent, canActivate: [AuthGuard] }
+  { path: 'student/login', component: LoginComponent },
+  { path: 'teacher/login', component: LoginComponent }
 ]
 
 @NgModule({

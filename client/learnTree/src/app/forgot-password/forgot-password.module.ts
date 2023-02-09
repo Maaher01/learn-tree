@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password.component';
 
+import { MatFormFieldModule } from '@angular/material/form-field'
+
 const routes: Routes = [
   { path: 'student/forgot-password', component: ForgotPasswordComponent },
   { path: 'teacher/forgot-password', component: ForgotPasswordComponent }
@@ -17,7 +19,8 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormFieldModule
   ],
   exports: [
     RouterModule

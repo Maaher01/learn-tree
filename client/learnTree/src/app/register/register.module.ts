@@ -5,9 +5,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register.component';
 import { AuthGuard } from '../guards/auth/auth.guard';
 
+import { MatFormFieldModule } from '@angular/material/form-field'
+
 const routes: Routes = [
-  { path: 'teacher/register', component: RegisterComponent, canActivate: [AuthGuard] },
-  { path: 'student/register', component: RegisterComponent, canActivate: [AuthGuard] }
+  { path: 'teacher/register', component: RegisterComponent },
+  { path: 'student/register', component: RegisterComponent }
 ]
 
 @NgModule({
@@ -18,7 +20,8 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forRoot(routes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormFieldModule
   ],
   exports: [
     RouterModule

@@ -6,16 +6,8 @@ const {
 } = require("../utils/teacher-utils");
 
 const registerTeacherHandler = async (req, res) => {
-	const {
-		name,
-		email,
-		password,
-		department,
-		mobile,
-		birth_date,
-		gender,
-		address,
-	} = req.body;
+	const { name, email, password, mobile, birth_date, gender, address } =
+		req.body;
 
 	try {
 		let teacher = await getTeacher(email);
@@ -29,7 +21,6 @@ const registerTeacherHandler = async (req, res) => {
 			name,
 			email,
 			hashedPassword,
-			department,
 			mobile,
 			birth_date,
 			gender,
@@ -39,7 +30,6 @@ const registerTeacherHandler = async (req, res) => {
 			id: teacher.teacher_id,
 			name: teacher.name,
 			email: teacher.email,
-			department: teacher.department,
 			mobile: teacher.mobile,
 			birth_date: teacher.birth_date,
 			gender: teacher.gender,

@@ -10,8 +10,6 @@ const registerStudentHandler = async (req, res) => {
 		name,
 		email,
 		password,
-		department,
-		semester,
 		cgpa,
 		mobile,
 		birth_date,
@@ -23,6 +21,7 @@ const registerStudentHandler = async (req, res) => {
 
 	try {
 		let student = await getStudent(email);
+		console.log(email);
 		if (student) {
 			return res
 				.status(403)
@@ -33,8 +32,6 @@ const registerStudentHandler = async (req, res) => {
 			name,
 			email,
 			hashedPassword,
-			department,
-			semester,
 			cgpa,
 			mobile,
 			birth_date,
@@ -47,8 +44,6 @@ const registerStudentHandler = async (req, res) => {
 			id: student.student_id,
 			name: student.name,
 			email: student.email,
-			department: student.department,
-			semester: student.semester,
 			cgpa: student.cgpa,
 			mobile: student.mobile,
 			birth_date: student.birth_date,
