@@ -8,8 +8,7 @@ import { AuthGuard } from '../guards/auth/auth.guard';
 import { MatFormFieldModule } from '@angular/material/form-field'
 
 const routes: Routes = [
-  { path: 'teacher/register', component: RegisterComponent },
-  { path: 'student/register', component: RegisterComponent }
+  { path: 'user/register', component: RegisterComponent }
 ]
 
 @NgModule({

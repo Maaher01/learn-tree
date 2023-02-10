@@ -11,35 +11,25 @@ import { UserService } from '../services/user/user.service';
 export class RegisterComponent {
   public errorResponse!: string;
 
-  studentRegister = this.fb.group({
+  registerForm = this.fb.group({
     name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(128)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(11)]),
-    cgpa: new FormControl('', [Validators.min(0), Validators.max(4)]),
     mobile: new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]),
     birth_date: new FormControl('', [Validators.required]),
     gender: new FormControl('', [Validators.required]),
     address: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(256)]),
     father_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(128)]),
-    mother_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(128)])
-  })
-
-  teacherRegister = this.fb.group({
-    name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(128)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(11)]),
-    mobile: new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]),
-    birth_date: new FormControl('', [Validators.required]),
-    gender: new FormControl('', [Validators.required]),
-    address: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(256)]),
+    mother_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(128)]),
+    role: new FormControl('', [Validators.required])
   })
 
   constructor(private fb: FormBuilder, private router: Router, private userService: UserService) { }
 
-  registerStudent() {
-    this.userService.registerStudent(this.studentRegister.value).subscribe({
+  registerUser() {
+    this.userService.register(this.registerForm.value).subscribe({
       next: () => {
-        this.studentRegister.reset()
+        this.registerForm.reset()
         this.router.navigate(['/'])
       },
       error: (err) => {
@@ -47,17 +37,4 @@ export class RegisterComponent {
       }
     })
   }
-
-  registerTeacher() {
-    this.userService.registerTeacher(this.teacherRegister.value).subscribe({
-      next: () => {
-        this.teacherRegister.reset()
-        this.router.navigate(['/'])
-      },
-      error: (err) => {
-        this.errorResponse = err.message
-      }
-    })
-  }
-
 }

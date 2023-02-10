@@ -7,111 +7,57 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private studentUrl = "http://localhost:3000/api/student"
-  private teacherUrl = "http://localhost:3000/api/teacher"
+  private apiUrl = "http://localhost:3000/api/user"
 
   constructor(private http: HttpClient, public router: Router) { }
 
-  registerStudent(student: any): Observable<any> {
-    let studentRegisterUrl = `${this.studentUrl}/register`;
-    return this.http.post(studentRegisterUrl, student).pipe(
+  register(user: any): Observable<any> {
+    let signupUrl = `${this.apiUrl}/register`;
+    return this.http.post(signupUrl, user).pipe(
       tap((res: any) => {
-        this.setStudent(res.data.student)
+        this.setUser(res.data.user)
       }),
       catchError(this.handleError)
     )
   }
 
-  registerTeacher(teacher: any): Observable<any> {
-    let teacherRegisterUrl = `${this.teacherUrl}/register`;
-    return this.http.post(teacherRegisterUrl, teacher).pipe(
+  login(user: any): Observable<any> {
+    let loginUrl = `${this.apiUrl}/login`
+    return this.http.post<any>(loginUrl, user).pipe(
       tap((res: any) => {
-        this.setTeacher(res.data.teacher)
+        this.setUser(res.data.user)
       }),
       catchError(this.handleError)
     )
   }
 
-  loginStudent(student: any): Observable<any> {
-    let studentLoginUrl = `${this.studentUrl}/login`
-    return this.http.post<any>(studentLoginUrl, student).pipe(
+  logout() {
+    localStorage.removeItem('user')
+    this.router.navigateByUrl('/user/login')
+  }
+
+  resetUserPassword(payload: any) {
+    let resetPasswordUrl = `${this.apiUrl}/forgot-password`
+    return this.http.put<any>(resetPasswordUrl, payload).pipe(
       tap((res: any) => {
-        this.setStudent(res.data.student)
+        localStorage.removeItem('user')
+        this.router.navigateByUrl('/user/login')
       }),
       catchError(this.handleError)
     )
   }
 
-  loginTeacher(teacher: any): Observable<any> {
-    let teacherLoginUrl = `${this.teacherUrl}/login`
-    return this.http.post<any>(teacherLoginUrl, teacher).pipe(
-      tap((res: any) => {
-        this.setTeacher(res.data.teacher)
-      }),
-      catchError(this.handleError)
-    )
+  setUser(user: any): void {
+    localStorage.setItem('user', JSON.stringify(user))
   }
 
-  logoutStudent() {
-    localStorage.removeItem('student')
-    this.router.navigateByUrl('/student/login')
+  get isLoggedIn(): Boolean {
+    const user = this.getUserFromLocalStorage()
+    return user ? true : false
   }
 
-  logoutTeacher() {
-    localStorage.removeItem('teacher')
-    this.router.navigateByUrl('/teacher/login')
-  }
-
-  resetStudentPassword(payload: any) {
-    let resetStudentPasswordUrl = `${this.studentUrl}/forgot-password`
-    return this.http.put<any>(resetStudentPasswordUrl, payload).pipe(
-      tap((res: any) => {
-        localStorage.removeItem('student')
-        this.router.navigateByUrl('/student/login')
-      }),
-      catchError(this.handleError)
-    )
-  }
-
-  resetTeacherPassword(payload: any) {
-    let resetTeacherPasswordUrl = `${this.teacherUrl}/forgot-password`
-    return this.http.put<any>(resetTeacherPasswordUrl, payload).pipe(
-      tap((res: any) => {
-        localStorage.removeItem('teacher')
-        this.router.navigateByUrl('/teacher/login')
-      }),
-      catchError(this.handleError)
-    )
-  }
-
-  setStudent(student: any): void {
-    localStorage.setItem('student', JSON.stringify(student))
-  }
-
-  setTeacher(teacher: any): void {
-    localStorage.setItem('teacher', JSON.stringify(teacher))
-  }
-
-  get studentIsLoggedIn(): Boolean {
-    const student = this.getStudentFromLocalStorage()
-    return student ? true : false
-  }
-
-  get teacherIsLoggedIn(): Boolean {
-    const teacher = this.getTeacherFromLocalStorage()
-    return teacher ? true : false
-  }
-
-  getStudentFromLocalStorage() {
-    const token = localStorage.getItem('student')
-    if (token) {
-      return JSON.parse(token)
-    }
-    return null
-  }
-
-  getTeacherFromLocalStorage() {
-    const token = localStorage.getItem('teacher')
+  getUserFromLocalStorage() {
+    const token = localStorage.getItem('user')
     if (token) {
       return JSON.parse(token)
     }

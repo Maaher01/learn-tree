@@ -7,8 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from '../guards/auth/auth.guard';
 
 const routes: Routes = [
-  { path: 'student/login', component: LoginComponent },
-  { path: 'teacher/login', component: LoginComponent }
+  { path: 'user/login', component: LoginComponent }
 ]
 
 @NgModule({

@@ -12,40 +12,20 @@ export class ForgotPasswordComponent {
   public errorResponse!: string
   public successResponse!: string
 
-  studentResetPasswordForm = this.fb.group({
-    email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(11)])
-  })
-
-  teacherResetPasswordForm = this.fb.group({
+  resetPasswordForm = this.fb.group({
     email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(11)])
   })
 
   constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
 
-  resetStudentPassword() {
-    const email = this.studentResetPasswordForm.controls['email'].value
-    const newPassword = this.studentResetPasswordForm.controls['password'].value
-    this.userService.resetStudentPassword({ email, newPassword }).subscribe({
+  resetPassword() {
+    const email = this.resetPasswordForm.controls['email'].value
+    const newPassword = this.resetPasswordForm.controls['password'].value
+    this.userService.resetUserPassword({ email, newPassword }).subscribe({
       next: () => {
         this.errorResponse = ''
-        this.studentResetPasswordForm.reset()
-      },
-      error: (err) => {
-        this.successResponse = ''
-        this.errorResponse = err.message
-      }
-    })
-  }
-
-  resetTeacherPassword() {
-    const email = this.teacherResetPasswordForm.controls['email'].value
-    const newPassword = this.teacherResetPasswordForm.controls['password'].value
-    this.userService.resetTeacherPassword({ email, newPassword }).subscribe({
-      next: () => {
-        this.errorResponse = ''
-        this.teacherResetPasswordForm.reset()
+        this.resetPasswordForm.reset()
       },
       error: (err) => {
         this.successResponse = ''

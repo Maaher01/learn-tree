@@ -11,22 +11,17 @@ import { UserService } from '../services/user/user.service';
 export class LoginComponent {
   public errorResponse!: string
 
-  studentLogin = this.fb.group({
-    email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required])
-  })
-
-  teacherLogin = this.fb.group({
+  loginForm = this.fb.group({
     email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
   })
 
   constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
 
-  loginStudent() {
-    this.userService.loginStudent(this.studentLogin.value).subscribe({
+  loginUser() {
+    this.userService.login(this.loginForm.value).subscribe({
       next: () => {
-        this.studentLogin.reset()
+        this.loginForm.reset()
         this.router.navigate(['/'])
       },
       error: (err) => {
@@ -34,17 +29,4 @@ export class LoginComponent {
       }
     })
   }
-
-  loginTeacher() {
-    this.userService.loginTeacher(this.teacherLogin.value).subscribe({
-      next: () => {
-        this.teacherLogin.reset()
-        this.router.navigate(['/'])
-      },
-      error: (err) => {
-        this.errorResponse = err.message
-      }
-    })
-  }
-
 }

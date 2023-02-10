@@ -14,22 +14,17 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const currentUrl = state.url;
-    const studentIsLoggedIn = this.userService.studentIsLoggedIn;
-    const teacherIsLoggedIn = this.userService.teacherIsLoggedIn;
-    const AUTH_URLS = ['/student/register', 'teacher/register', 'student/login', 'teacher/login']
+    const isLoggedIn = this.userService.isLoggedIn;
+    const AUTH_URLS = ['/user/register', 'user/login']
 
-    if (AUTH_URLS.includes(currentUrl) && (studentIsLoggedIn || teacherIsLoggedIn)) {
+    if (AUTH_URLS.includes(currentUrl) && isLoggedIn) {
       this.router.navigateByUrl('/')
       return false;
     }
 
-    if (!AUTH_URLS.includes(currentUrl) && !studentIsLoggedIn) {
-      this.router.navigateByUrl('/student/login')
+    if (!AUTH_URLS.includes(currentUrl) && !isLoggedIn) {
+      this.router.navigateByUrl('/user/login')
       return false;
-    }
-
-    if (!AUTH_URLS.includes(currentUrl) && !teacherIsLoggedIn) {
-      this.router.navigateByUrl('/teacher/login')
     }
     return true;
   }

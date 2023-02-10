@@ -1,20 +1,32 @@
-<!-- Student registration form -->
-<div
-    class="bg-slate-200 grid lg:grid-cols-2 md:grid-cols-1 lg:gap-16 sm:gap-12 place-content-center 2xl:px-96 xl:px-64 lg:px-24 md:px-36 sm:px-12 lg:pt-28 lg:pb-28 md:py-16 sm:py-12">
-    <form class="bg-slate-50 shadow-2xl px-6 py-12 rounded-lg" [formGroup]="studentRegister"
-        (ngSubmit)="registerStudent()">
-        <p class="text-2xl font-medium mb-6">Student Registration</p>
+<!-- User Registration Form -->
+<div class="bg-slate-200 grid place-content-center">
+    <form class="bg-slate-50 shadow-2xl px-6 py-12 rounded-lg" [formGroup]="registerForm" (ngSubmit)="registerUser()">
+        <p class="text-2xl font-medium mb-6">User Registration</p>
+        <div class="flex flex-col py-3">
+            <label class="font-medium text-sm mb-1" for="role">Register As</label>
+            <select class="bg-slate-200 px-4 py-3 rounded-lg" placeholder="Select role..." formControlName="role"
+                id="role" name="role">
+                <option>Student</option>
+                <option>Teacher</option>
+            </select>
+        </div>
+        <div
+            *ngIf="(registerForm.controls['role']?.dirty || registerForm.controls['role']?.touched) && registerForm.controls['role'].invalid">
+            <mat-error *ngIf="!!registerForm.controls['role']?.hasError('required')">
+                Role is required
+            </mat-error>
+        </div>
         <div class="flex flex-col py-3">
             <label class="font-medium text-sm mb-1" for="name">Name</label>
             <input class="bg-slate-200 px-4 py-3 rounded-lg" type="text" placeholder="Enter name..."
                 formControlName="name" id="name" name="name" />
         </div>
         <div
-            *ngIf="(studentRegister.controls['name']?.dirty || studentRegister.controls['name']?.touched) && studentRegister.controls['name'].invalid">
-            <mat-error *ngIf="studentRegister.controls['name']?.hasError('required')">
+            *ngIf="(registerForm.controls['name']?.dirty || registerForm.controls['name']?.touched) && registerForm.controls['name'].invalid">
+            <mat-error *ngIf="registerForm.controls['name']?.hasError('required')">
                 Username is required
             </mat-error>
-            <mat-error *ngIf="studentRegister.controls['name']?.hasError('minlength')">
+            <mat-error *ngIf="registerForm.controls['name']?.hasError('minlength')">
                 Username must contain atleast 3 letters
             </mat-error>
         </div>
@@ -24,11 +36,11 @@
                 formControlName="email" id="email" name="email" />
         </div>
         <div
-            *ngIf="(studentRegister.controls['email']?.dirty || studentRegister.controls['email']?.touched) && studentRegister.controls['email'].invalid">
-            <mat-error *ngIf="studentRegister.controls['email']?.hasError('email')">
+            *ngIf="(registerForm.controls['email']?.dirty || registerForm.controls['email']?.touched) && registerForm.controls['email'].invalid">
+            <mat-error *ngIf="registerForm.controls['email']?.hasError('email')">
                 Please enter a valid email
             </mat-error>
-            <mat-error *ngIf="studentRegister.controls['email']?.hasError('required')">
+            <mat-error *ngIf="registerForm.controls['email']?.hasError('required')">
                 Email is required
             </mat-error>
         </div>
@@ -38,27 +50,14 @@
                 formControlName="password" id="password" name="password" />
         </div>
         <div
-            *ngIf="(studentRegister.controls['password']?.dirty || studentRegister.controls['password']?.touched) && studentRegister.controls['password'].invalid">
-            <mat-error *ngIf="studentRegister.controls['password']?.hasError('required')">
+            *ngIf="(registerForm.controls['password']?.dirty || registerForm.controls['password']?.touched) && registerForm.controls['password'].invalid">
+            <mat-error *ngIf="registerForm.controls['password']?.hasError('required')">
                 Password is required
             </mat-error>
             <mat-error
-                *ngIf="(studentRegister.controls['password']?.hasError('minlength') || studentRegister.controls['password']?.hasError('maxLength'))">
+                *ngIf="(registerForm.controls['password']?.hasError('minlength') || registerForm.controls['password']?.hasError('maxLength'))">
                 Please enter a password between 3 to 11 characters
             </mat-error>
-        </div>
-        <div class="flex flex-col py-3">
-            <label class="font-medium text-sm mb-1" for="cgpa">Current CGPA</label>
-            <input class="bg-slate-200 px-4 py-3 rounded-lg" type="number" placeholder="Enter current cgpa..."
-                formControlName="cgpa" id="cgpa" name="cgpa" />
-            <div *ngIf="studentRegister.controls['cgpa'].invalid">
-                <mat-error *ngIf="studentRegister.controls['cgpa']?.hasError('min')">
-                    CGPA cannot be less than 0
-                </mat-error>
-                <mat-error *ngIf="studentRegister.controls['cgpa']?.hasError('max')">
-                    CGPA cannot be more than 4
-                </mat-error>
-            </div>
         </div>
         <div class="flex flex-col py-3">
             <label class="font-medium text-sm mb-1" for="mobile">Mobile No.</label>
@@ -66,14 +65,14 @@
                 formControlName="mobile" id="mobile" name="mobile" />
         </div>
         <div
-            *ngIf="(studentRegister.controls['mobile']?.dirty || studentRegister.controls['mobile']?.touched) && studentRegister.controls['mobile'].invalid">
-            <mat-error *ngIf="studentRegister.controls['mobile']?.hasError('required')">
+            *ngIf="(registerForm.controls['mobile']?.dirty || registerForm.controls['mobile']?.touched) && registerForm.controls['mobile'].invalid">
+            <mat-error *ngIf="registerForm.controls['mobile']?.hasError('required')">
                 Mobile number is required
             </mat-error>
-            <mat-error *ngIf="studentRegister.controls['mobile']?.hasError('minlength')">
+            <mat-error *ngIf="registerForm.controls['mobile']?.hasError('minlength')">
                 Mobile number must have atleast 11 digits.
             </mat-error>
-            <mat-error *ngIf="studentRegister.controls['mobile']?.hasError('maxlength')">
+            <mat-error *ngIf="registerForm.controls['mobile']?.hasError('maxlength')">
                 Mobile number cannot have more than 14 characters.
             </mat-error>
         </div>
@@ -82,8 +81,8 @@
             <input class="bg-slate-200 px-4 py-3 rounded-lg" type="date" min="2004-01-01" max="2018-12-31"
                 placeholder="Enter date of birth..." formControlName="birth_date" id="birth_date" name="birth_date" />
         </div>
-        <div *ngIf="studentRegister.controls['birth_date']?.touched">
-            <mat-error *ngIf="studentRegister.controls['mobile']?.hasError('required')">
+        <div *ngIf="registerForm.controls['birth_date']?.touched">
+            <mat-error *ngIf="registerForm.controls['mobile']?.hasError('required')">
                 Birth date is required
             </mat-error>
         </div>
@@ -97,8 +96,8 @@
             </select>
         </div>
         <div
-            *ngIf="(studentRegister.controls['gender']?.dirty || studentRegister.controls['gender']?.touched) && studentRegister.controls['gender'].invalid">
-            <mat-error *ngIf="!!studentRegister.controls['gender']?.hasError('required')">
+            *ngIf="(registerForm.controls['gender']?.dirty || registerForm.controls['gender']?.touched) && registerForm.controls['gender'].invalid">
+            <mat-error *ngIf="!!registerForm.controls['gender']?.hasError('required')">
                 Gender is required
             </mat-error>
         </div>
@@ -109,11 +108,11 @@
                 formControlName="address" id="address" name="address" />
         </div>
         <div
-            *ngIf="(studentRegister.controls['address']?.dirty || studentRegister.controls['address']?.touched) && studentRegister.controls['address'].invalid">
-            <mat-error *ngIf="studentRegister.controls['address']?.hasError('required')">
+            *ngIf="(registerForm.controls['address']?.dirty || registerForm.controls['address']?.touched) && registerForm.controls['address'].invalid">
+            <mat-error *ngIf="registerForm.controls['address']?.hasError('required')">
                 Address is required
             </mat-error>
-            <mat-error *ngIf="studentRegister.controls['mobile']?.hasError('minLength')">
+            <mat-error *ngIf="registerForm.controls['mobile']?.hasError('minLength')">
                 Address cannot have less than 4 characters
             </mat-error>
         </div>
@@ -123,11 +122,11 @@
                 formControlName="father_name" id="father_name" name="father_name" />
         </div>
         <div
-            *ngIf="(studentRegister.controls['father_name']?.dirty || studentRegister.controls['father_name']?.touched) && studentRegister.controls['father_name'].invalid">
-            <mat-error *ngIf="studentRegister.controls['father_name']?.hasError('required')">
+            *ngIf="(registerForm.controls['father_name']?.dirty || registerForm.controls['father_name']?.touched) && registerForm.controls['father_name'].invalid">
+            <mat-error *ngIf="registerForm.controls['father_name']?.hasError('required')">
                 Father's name is required
             </mat-error>
-            <mat-error *ngIf="studentRegister.controls['father_name']?.hasError('minlength')">
+            <mat-error *ngIf="registerForm.controls['father_name']?.hasError('minlength')">
                 Father's name must contain atleast 3 letters
             </mat-error>
         </div>
@@ -137,11 +136,11 @@
                 formControlName="mother_name" id="mother_name" name="mother_name" />
         </div>
         <div
-            *ngIf="(studentRegister.controls['mother_name']?.dirty || studentRegister.controls['mother_name']?.touched) && studentRegister.controls['mother_name'].invalid">
-            <mat-error *ngIf="studentRegister.controls['mother_name']?.hasError('required')">
+            *ngIf="(registerForm.controls['mother_name']?.dirty || registerForm.controls['mother_name']?.touched) && registerForm.controls['mother_name'].invalid">
+            <mat-error *ngIf="registerForm.controls['mother_name']?.hasError('required')">
                 Mother's name is required
             </mat-error>
-            <mat-error *ngIf="studentRegister.controls['mother_name']?.hasError('minlength')">
+            <mat-error *ngIf="registerForm.controls['mother_name']?.hasError('minlength')">
                 Mother's name must contain atleast 3 letters
             </mat-error>
         </div>
@@ -150,134 +149,14 @@
         </div>
         <div class="mt-10 mb-4">
             <button class="bg-cyan-800 hover:bg-cyan-900 cursor-pointer text-white text-sm w-full rounded-lg px-4 py-3"
-                [disabled]="studentRegister.invalid">
+                [disabled]="registerForm.invalid">
                 Register
             </button>
         </div>
         <div class="text-center">
             <p class="font-medium text-sm">
-                Already have an account? Click here to <a class="font-extrabold" [routerLink]="['/student/login']">Log
+                Already have an account? Click here to <a class="font-extrabold" [routerLink]="['/user/login']">Log
                     In</a>
-            </p>
-        </div>
-    </form>
-
-    <!-- Teacher's registration form -->
-    <form class="bg-slate-50 shadow-2xl px-6 py-12 rounded-lg" [formGroup]="teacherRegister"
-        (ngSubmit)="registerTeacher()">
-        <p class="text-2xl font-medium mb-6">Teacher Registration</p>
-        <div class="flex flex-col py-3">
-            <label class="font-medium text-sm mb-1" for="name">Name</label>
-            <input class="bg-slate-200 px-4 py-3 rounded-lg" type="text" placeholder="Enter name..."
-                formControlName="name" id="name" name="name" />
-        </div>
-        <div
-            *ngIf="(teacherRegister.controls['name']?.dirty || teacherRegister.controls['name']?.touched) && teacherRegister.controls['name'].invalid">
-            <mat-error *ngIf="teacherRegister.controls['name']?.hasError('required')">
-                Username is required
-            </mat-error>
-            <mat-error *ngIf="teacherRegister.controls['name']?.hasError('minlength')">
-                Username must contain atleast 3 letters
-            </mat-error>
-        </div>
-        <div class="flex flex-col py-3">
-            <label class="font-medium text-sm mb-1" for="email">Email</label>
-            <input class="bg-slate-200 px-4 py-3 rounded-lg" type="email" placeholder="Enter email..."
-                formControlName="email" id="email" name="email" />
-        </div>
-        <div
-            *ngIf="(teacherRegister.controls['email']?.dirty || teacherRegister.controls['email']?.touched) && teacherRegister.controls['email'].invalid">
-            <mat-error *ngIf="teacherRegister.controls['email']?.hasError('email')">
-                Please enter a valid email
-            </mat-error>
-            <mat-error *ngIf="teacherRegister.controls['email']?.hasError('required')">
-                Email is required
-            </mat-error>
-        </div>
-        <div class="flex flex-col py-3">
-            <label class="font-medium text-sm mb-1" for="password">Password</label>
-            <input class="bg-slate-200 px-4 py-3 rounded-lg" type="password" placeholder="Enter password..."
-                formControlName="password" id="password" name="password" />
-        </div>
-        <div
-            *ngIf="(teacherRegister.controls['password']?.dirty || teacherRegister.controls['password']?.touched) && teacherRegister.controls['password'].invalid">
-            <mat-error *ngIf="teacherRegister.controls['password']?.hasError('required')">
-                Password is required
-            </mat-error>
-            <mat-error
-                *ngIf="(teacherRegister.controls['password']?.hasError('minlength') || teacherRegister.controls['password']?.hasError('maxLength'))">
-                Please enter a password between 3 to 11 characters
-            </mat-error>
-        </div>
-        <div class="flex flex-col py-3">
-            <label class="font-medium text-sm mb-1" for="mobile">Mobile No.</label>
-            <input class="bg-slate-200 px-4 py-3 rounded-lg" type="text" placeholder="Enter mobile no..."
-                formControlName="mobile" id="mobile" name="mobile" />
-        </div>
-        <div
-            *ngIf="(teacherRegister.controls['mobile']?.dirty || teacherRegister.controls['mobile']?.touched) && teacherRegister.controls['mobile'].invalid">
-            <mat-error *ngIf="teacherRegister.controls['mobile']?.hasError('required')">
-                Mobile number is required
-            </mat-error>
-            <mat-error *ngIf="teacherRegister.controls['mobile']?.hasError('minlength')">
-                Mobile number must have atleast 11 digits.
-            </mat-error>
-            <mat-error *ngIf="teacherRegister.controls['mobile']?.hasError('maxlength')">
-                Mobile number cannot have more than 14 characters.
-            </mat-error>
-        </div>
-        <div class="flex flex-col py-3">
-            <label class="font-medium text-sm mb-1" for="mobile">Date of Birth</label>
-            <input class="bg-slate-200 px-4 py-3 rounded-lg" type="date" placeholder="Enter date of birth..."
-                formControlName="birth_date" id="birth_date" name="birth_date" />
-        </div>
-        <div *ngIf="teacherRegister.controls['birth_date']?.touched">
-            <mat-error *ngIf="teacherRegister.controls['mobile']?.hasError('required')">
-                Birth date is required
-            </mat-error>
-        </div>
-        <div class="flex flex-col py-3">
-            <label class="font-medium text-sm mb-1" for="gender">Gender</label>
-            <select class="bg-slate-200 px-4 py-3 rounded-lg" placeholder="Choose gender..." formControlName="gender"
-                id="gender" name="gender">
-                <option>Male</option>
-                <option>Female</option>
-                <option>Others</option>
-            </select>
-        </div>
-        <div
-            *ngIf="(teacherRegister.controls['gender']?.dirty || teacherRegister.controls['gender']?.touched) && teacherRegister.controls['gender'].invalid">
-            <mat-error *ngIf="!!teacherRegister.controls['gender']?.hasError('required')">
-                Gender is required
-            </mat-error>
-        </div>
-        <div class="flex flex-col py-3">
-            <label class="font-medium text-sm mb-1" for="address">Address</label>
-            <input class="bg-slate-200 px-4 py-3 rounded-lg" type="text" placeholder="Enter address..."
-                formControlName="address" id="address" name="address" />
-        </div>
-        <div
-            *ngIf="(teacherRegister.controls['address']?.dirty || teacherRegister.controls['address']?.touched) && teacherRegister.controls['address'].invalid">
-            <mat-error *ngIf="teacherRegister.controls['address']?.hasError('required')">
-                Address is required
-            </mat-error>
-            <mat-error *ngIf="teacherRegister.controls['mobile']?.hasError('minlength')">
-                Address cannot have less than 4 characters
-            </mat-error>
-        </div>
-        <div class="w-full bg-red-200 px-4 py-3 rounded-lg my-7" *ngIf="errorResponse">
-            <strong class="text-sm text-center text-red-700">{{ errorResponse }}</strong>
-        </div>
-        <div class="mt-10 mb-4">
-            <button class="bg-cyan-800 hover:bg-cyan-900 cursor-pointer text-white text-sm w-full rounded-lg px-4 py-3"
-                [disabled]="teacherRegister.invalid">
-                Register
-            </button>
-        </div>
-        <div class="text-center">
-            <p class="font-medium text-sm">
-                Already have an account? Click here to <a class="font-extrabold text-sm"
-                    [routerLink]="['/teacher/login']">Log In</a>
             </p>
         </div>
     </form>

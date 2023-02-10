@@ -7,8 +7,7 @@ import { ForgotPasswordComponent } from './forgot-password.component';
 import { MatFormFieldModule } from '@angular/material/form-field'
 
 const routes: Routes = [
-  { path: 'student/forgot-password', component: ForgotPasswordComponent },
-  { path: 'teacher/forgot-password', component: ForgotPasswordComponent }
+  { path: 'user/forgot-password', component: ForgotPasswordComponent }
 ]
 
 @NgModule({

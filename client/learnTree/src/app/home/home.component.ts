@@ -12,21 +12,13 @@ export class HomeComponent implements OnInit {
   constructor(public userService: UserService) { }
 
   ngOnInit(): void {
-    this.getCurrentStudent()
-    this.getCurrentTeacher()
+    this.getCurrentUser()
   }
 
-  getCurrentStudent() {
-    const student = this.userService.getStudentFromLocalStorage()
-    if (student) {
-      this.currentUser = student
-    }
-  }
-
-  getCurrentTeacher() {
-    const teacher = this.userService.getTeacherFromLocalStorage()
-    if (teacher) {
-      this.currentUser = teacher
+  getCurrentUser() {
+    const user = this.userService.getUserFromLocalStorage()
+    if (user) {
+      this.currentUser = user
     }
   }
 }
