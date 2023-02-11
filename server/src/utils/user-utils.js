@@ -1,8 +1,8 @@
 const { pool } = require("../config/config");
 
-const getUser = async (userId) => {
-	const { rows } = await pool.query("SELECT * FROM users WHERE user_id=$1;", [
-		userId,
+const getUser = async (email) => {
+	const { rows } = await pool.query("SELECT * FROM users WHERE email=$1;", [
+		email,
 	]);
 	if (rows) {
 		return rows[0];
@@ -23,13 +23,13 @@ const createUser = async ({
 	role,
 }) => {
 	const { rows } = await pool.query(
-		"INSERT INTO users (name, email, password, cgpa, birth_date, gender, address, father_name, mother_name, role) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *",
+		"INSERT INTO users (name, email, password, birth_date, mobile, gender, address, father_name, mother_name, role) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *",
 		[
 			name,
 			email,
 			password,
-			mobile,
 			birth_date,
+			mobile,
 			gender,
 			address,
 			father_name,
