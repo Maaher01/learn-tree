@@ -3,6 +3,7 @@ const {
 	registerUserHandler,
 	loginUserHandler,
 	forgotPasswordHandler,
+	userInfoHandler
 } = require("../controllers/user.controller");
 
 const router = Router();
@@ -10,5 +11,6 @@ const router = Router();
 router.post("/register", registerUserHandler);
 router.post("/login", loginUserHandler);
 router.put("/forgot-password", forgotPasswordHandler);
+router.get("/", userInfoHandler);
 
 module.exports = router;

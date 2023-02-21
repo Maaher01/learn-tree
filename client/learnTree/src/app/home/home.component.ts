@@ -14,7 +14,7 @@ export class HomeComponent {
 
   ngOnInit() {
     this.getCurrentUser();
-    this.getUserInfo();
+    this.userService.getUserInfo(this.currentUser.id);
   }
 
   getCurrentUser() {
@@ -28,7 +28,7 @@ export class HomeComponent {
     this.userService.getUserId();
   }
 
-  getUserInfo() {
-    this.userService.getUserInfo(this.getUserId());
-  }
+  // getUserInfo() {
+  //   this.userService.getUserInfo(this.getUserId());
+  // }
 }

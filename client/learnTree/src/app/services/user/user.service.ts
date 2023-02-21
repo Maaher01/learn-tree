@@ -32,8 +32,8 @@ export class UserService {
   }
 
   getUserInfo(id: any): Observable<any> {
-    let infoUrl = `/`;
-    return this.http.post<any>(infoUrl, id).pipe(
+    // let infoUrl = `http://localhost:3000/api`;
+    return this.http.post<any>(this.apiUrl, { user_id: id }).pipe(
       tap((res: any) => {
         this.setUser(res.data.user);
       }),
