@@ -1,8 +1,9 @@
 const { hashPassword, comparePassword } = require("../utils/hash-utils");
 const {
 	getUser,
+	getUserInfo,
 	createUser,
-	updateUserPassword,
+	updateUserPassword
 } = require("../utils/user-utils");
 
 const registerUserHandler = async (req, res) => {
@@ -16,12 +17,11 @@ const registerUserHandler = async (req, res) => {
 		address,
 		father_name,
 		mother_name,
-		role,
+		role
 	} = req.body;
 
 	try {
 		let user = await getUser(email);
-		console.log(email);
 		if (user) {
 			return res
 				.status(403)
@@ -38,7 +38,7 @@ const registerUserHandler = async (req, res) => {
 			address,
 			father_name,
 			mother_name,
-			role,
+			role
 		});
 		const userResponse = {
 			id: user.user_id,
@@ -51,7 +51,7 @@ const registerUserHandler = async (req, res) => {
 			father_name: user.father_name,
 			mother_name: user.mother_name,
 			role: user.role,
-			entry: user.date_created,
+			entry: user.date_created
 		};
 		return res
 			.status(200)
@@ -59,7 +59,7 @@ const registerUserHandler = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "failed",
-			error: "Failed to create user. Please try again later.",
+			error: "Failed to create user. Please try again later."
 		});
 	}
 };
@@ -71,14 +71,42 @@ const loginUserHandler = async (req, res) => {
 		if (!user) {
 			return res.status(404).json({
 				status: "failed",
-				error: "User does not exist",
+				error: "User does not exist"
 			});
 		}
 		const compareResult = await comparePassword(password, user.password);
 		if (!compareResult) {
 			return res.status(404).json({
 				status: "failed",
-				error: "Incorrect password",
+				error: "Incorrect password"
+			});
+		}
+		const userResponse = {
+			id: user.user_id,
+			name: user.name,
+			email: user.email
+		};
+		return res.status(200).json({
+			status: "Success",
+			data: { user: userResponse }
+		});
+	} catch (err) {
+		res.status(500).json({
+			status: "failed",
+			error: "Failed to log in. Please try again later."
+		});
+	}
+};
+
+const userInfoHandler = async (req, res) => {
+	const { user_id } = req.body;
+	try {
+		const user = await getUserInfo(user_id);
+		console.log(user);
+		if (!user) {
+			return res.status(404).json({
+				status: "failed",
+				error: "User does not exist"
 			});
 		}
 		const userResponse = {
@@ -86,15 +114,17 @@ const loginUserHandler = async (req, res) => {
 			name: user.name,
 			email: user.email,
 			role: user.role,
+			classes: user.class_name,
+			subjects: user.subjects_name
 		};
 		return res.status(200).json({
 			status: "Success",
-			data: { user: userResponse },
+			data: { user: userResponse }
 		});
-	} catch (err) {
+	} catch {
 		res.status(500).json({
 			status: "failed",
-			error: "Failed to log in. Please try gain later.",
+			error: "Failed to get user info. Please try again later."
 		});
 	}
 };
@@ -106,25 +136,26 @@ const forgotPasswordHandler = async (req, res) => {
 		if (!user) {
 			return res.status(404).json({
 				status: "failed",
-				error: "No user found with this email",
+				error: "No user found with this email"
 			});
 		}
 		const hashedPassword = await hashPassword(newPassword);
-		await updateUserPassword(user.user_id, hashedPassword);
+		await updateUserPassword(user.email, hashedPassword);
 		const userResponse = {
 			id: user.user_id,
 			name: user.name,
 			email: user.email,
-			role: user.role,
+			role: user.role
 		};
+		console.log(userResponse);
 		return res.status(200).json({
 			status: "Success",
-			error: { user: userResponse },
+			error: { user: userResponse }
 		});
 	} catch (error) {
 		res.status(500).json({
 			status: "failed",
-			error: "Failed to change password. Please try again later.",
+			error: "Failed to change password. Please try again later."
 		});
 	}
 };
@@ -132,5 +163,6 @@ const forgotPasswordHandler = async (req, res) => {
 module.exports = {
 	registerUserHandler,
 	loginUserHandler,
-	forgotPasswordHandler,
+	userInfoHandler,
+	forgotPasswordHandler
 };

@@ -2,10 +2,23 @@ const { pool } = require("../config/config");
 
 const getUser = async (email) => {
 	const { rows } = await pool.query("SELECT * FROM users WHERE email=$1;", [
-		email,
+		email
 	]);
 	if (rows) {
 		return rows[0];
+	}
+	return null;
+};
+
+const getUserInfo = async (user_id) => {
+	const { rows } = await pool.query(
+		"SELECT users.user_id, users.name, users.email, users.role, users.password, classes.class_name, subjects.subject_name FROM users JOIN class_enrollment ON users.user_id = class_enrollment.user_id JOIN classes ON class_enrollment.class_id = classes.class_id JOIN subject_enrollment ON users.user_id = subject_enrollment.user_id JOIN subjects ON subject_enrollment.subject_id = subjects.subject_id WHERE user_id=$1;"[
+			user_id
+		]
+	);
+	console.log(rows);
+	if (rows) {
+		return rows;
 	}
 	return null;
 };
@@ -20,7 +33,7 @@ const createUser = async ({
 	address,
 	father_name,
 	mother_name,
-	role,
+	role
 }) => {
 	const { rows } = await pool.query(
 		"INSERT INTO users (name, email, password, birth_date, mobile, gender, address, father_name, mother_name, role) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *",
@@ -34,7 +47,7 @@ const createUser = async ({
 			address,
 			father_name,
 			mother_name,
-			role,
+			role
 		]
 	);
 	if (rows) {
@@ -43,9 +56,10 @@ const createUser = async ({
 	return null;
 };
 
-const updateUserPassword = async (userId, newPassword) => {
+const updateUserPassword = async (email, newPassword) => {
 	const { rows } = await pool.query(
-		"UPDATE users SET password=$1 WHERE user_id=$2 RETURNING *"
+		"UPDATE users SET password=$1 WHERE email=$2 RETURNING *",
+		[newPassword, email]
 	);
 	if (rows) {
 		return rows[0];
@@ -55,6 +69,7 @@ const updateUserPassword = async (userId, newPassword) => {
 
 module.exports = {
 	getUser,
+	getUserInfo,
 	createUser,
-	updateUserPassword,
+	updateUserPassword
 };
