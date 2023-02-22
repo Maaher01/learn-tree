@@ -8,13 +8,12 @@ import { UserService } from '../services/user/user.service';
 })
 export class HomeComponent {
   public currentUser: any;
-  // public userId: any;
 
   constructor(public userService: UserService) {}
 
   ngOnInit() {
     this.getCurrentUser();
-    this.userService.getUserInfo(this.currentUser.id);
+    this.getUserInfo();
   }
 
   getCurrentUser() {
@@ -25,10 +24,10 @@ export class HomeComponent {
   }
 
   getUserId() {
-    this.userService.getUserId();
+    return JSON.parse(localStorage.getItem('user') || '{}').id;
   }
 
-  // getUserInfo() {
-  //   this.userService.getUserInfo(this.getUserId());
-  // }
+  getUserInfo() {
+    this.userService.getUserInfo(this.currentUser.id).subscribe();
+  }
 }

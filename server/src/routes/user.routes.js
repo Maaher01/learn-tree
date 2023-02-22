@@ -11,6 +11,6 @@ const router = Router();
 router.post("/register", registerUserHandler);
 router.post("/login", loginUserHandler);
 router.put("/forgot-password", forgotPasswordHandler);
-router.get("/", userInfoHandler);
+router.post("/", userInfoHandler);
 
 module.exports = router;

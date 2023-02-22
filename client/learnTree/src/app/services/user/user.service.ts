@@ -32,13 +32,10 @@ export class UserService {
   }
 
   getUserInfo(id: any): Observable<any> {
-    // let infoUrl = `http://localhost:3000/api`;
-    return this.http.post<any>(this.apiUrl, { user_id: id }).pipe(
-      tap((res: any) => {
-        this.setUser(res.data.user);
-      }),
-      catchError(this.handleError)
-    );
+    console.log(id);
+    return this.http
+      .post<any>(this.apiUrl, { user_id: id })
+      .pipe(catchError(this.handleError));
   }
 
   logout() {
@@ -72,10 +69,6 @@ export class UserService {
       return JSON.parse(token);
     }
     return null;
-  }
-
-  getUserId() {
-    return JSON.parse(localStorage.getItem('user') || '{}').id;
   }
 
   private handleError(response: HttpErrorResponse) {

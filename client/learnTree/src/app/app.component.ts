@@ -4,18 +4,19 @@ import { UserService } from './services/user/user.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  userName!: string;
 
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService) {}
 
   ngDoCheck(): void {
-    this.isLoggedIn()
+    this.isLoggedIn();
   }
 
   isLoggedIn() {
-    return localStorage.getItem('user')
+    return localStorage.getItem('user');
   }
 
   displayName() {
@@ -23,9 +24,6 @@ export class AppComponent {
   }
 
   logout() {
-    this.userService.logout()
+    this.userService.logout();
   }
-
 }
-
-
