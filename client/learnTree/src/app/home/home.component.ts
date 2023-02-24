@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { UserService } from '../services/user/user.service';
+import { User } from '../models/Users';
 
 @Component({
   selector: 'app-home',
@@ -7,32 +9,19 @@ import { UserService } from '../services/user/user.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  public currentUser: any;
-  public userInfo: any[];
+  public currentUser: User | null;
+  public userInfo$: Observable<any>;
 
   constructor(public userService: UserService) {}
 
   ngOnInit() {
-    this.getCurrentUser();
+    this.userService.currentUser$.subscribe(
+      (user) => (this.currentUser = user)
+    );
     this.getUserInfo();
   }
 
-  getCurrentUser() {
-    const user = this.userService.getUserFromLocalStorage();
-    if (user) {
-      this.currentUser = user;
-    }
-  }
-
-  getUserId() {
-    this.userService.getUserId();
-  }
-
   getUserInfo() {
-    this.userService
-      .getUserInfo(this.currentUser.id)
-      .subscribe((res) => (this.userInfo = res));
+    this.userInfo$ = this.userService.getUserInfo(this.currentUser.id);
   }
-
-  displayUserInfo() {}
 }

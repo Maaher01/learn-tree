@@ -9,18 +9,6 @@ import { UserService } from './services/user/user.service';
 export class AppComponent {
   constructor(public userService: UserService) {}
 
-  ngDoCheck(): void {
-    this.isLoggedIn();
-  }
-
-  isLoggedIn() {
-    return localStorage.getItem('user');
-  }
-
-  displayName() {
-    return JSON.parse(localStorage.getItem('user') || '{}').name.split(' ')[0];
-  }
-
   logout() {
     this.userService.logout();
   }

@@ -10,6 +10,8 @@ import { ForgotPasswordModule } from './forgot-password/forgot-password.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+import { MatCardModule } from '@angular/material/card';
+
 @NgModule({
   declarations: [AppComponent, HomeComponent, PageNotFoundComponent],
   imports: [
@@ -19,6 +21,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     LoginModule,
     ForgotPasswordModule,
     BrowserAnimationsModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

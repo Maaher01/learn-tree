@@ -1,15 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import {
+  catchError,
+  Observable,
+  tap,
+  map,
+  throwError,
+  BehaviorSubject,
+} from 'rxjs';
+import { User } from 'src/app/models/Users';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private apiUrl = 'http://localhost:3000/api/user';
+  private currentUserSubject: BehaviorSubject<User | null>;
+  public currentUser$: Observable<User | null>;
 
-  constructor(private http: HttpClient, public router: Router) {}
+  constructor(private http: HttpClient, public router: Router) {
+    this.currentUserSubject = new BehaviorSubject(
+      this.getUserFromLocalStorage()
+    );
+    this.currentUser$ = this.currentUserSubject.asObservable();
+  }
 
   register(user: any): Observable<any> {
     let signupUrl = `${this.apiUrl}/register`;
@@ -33,6 +48,7 @@ export class UserService {
 
   logout() {
     localStorage.removeItem('user');
+    this.currentUserSubject.next(null);
     this.router.navigateByUrl('/user/login');
   }
 
@@ -49,6 +65,7 @@ export class UserService {
 
   setUser(user: any): void {
     localStorage.setItem('user', JSON.stringify(user));
+    this.currentUserSubject.next(user);
   }
 
   get isLoggedIn(): Boolean {
@@ -64,15 +81,11 @@ export class UserService {
     return null;
   }
 
-  getUserId() {
-    return JSON.parse(localStorage.getItem('user') || '{}').id;
-  }
-
-  getUserInfo(id: any): Observable<any> {
-    console.log(id);
-    return this.http
-      .post<any>(this.apiUrl, { user_id: id })
-      .pipe(catchError(this.handleError));
+  getUserInfo(id: number): Observable<any> {
+    return this.http.post<any>(this.apiUrl, { user_id: id }).pipe(
+      map((res) => res.data),
+      catchError(this.handleError)
+    );
   }
 
   private handleError(response: HttpErrorResponse) {

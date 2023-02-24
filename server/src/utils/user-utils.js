@@ -15,7 +15,6 @@ const getUserInfo = async (user_id) => {
 		`SELECT users.user_id, classes.class_name, subjects.subject_name FROM users JOIN class_enrollment ON users.user_id = class_enrollment.user_id JOIN classes ON class_enrollment.class_id = classes.class_id JOIN subject_enrollment ON users.user_id = subject_enrollment.user_id JOIN subjects ON subject_enrollment.subject_id = subjects.subject_id WHERE users.user_id = $1;`,
 		[user_id]
 	);
-	console.log(rows);
 	if (rows) {
 		return rows;
 	}

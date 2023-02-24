@@ -99,25 +99,18 @@ const loginUserHandler = async (req, res) => {
 };
 
 const userInfoHandler = async (req, res) => {
-	console.log("hit");
 	const { user_id } = req.body;
 	try {
 		const userInfo = await getUserInfo(user_id);
-		console.log(userInfo);
 		if (!userInfo) {
 			return res.status(404).json({
 				status: "failed",
 				error: "User does not exist",
 			});
 		}
-		const userResponse = {
-			id: userInfo.user_id,
-			name: userInfo.class_name,
-			email: userInfo.subject_name,
-		};
 		return res.status(200).json({
 			status: "Success",
-			data: { userInfo: userResponse },
+			data: userInfo,
 		});
 	} catch {
 		res.status(500).json({
