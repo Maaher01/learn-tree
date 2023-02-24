@@ -6,14 +6,10 @@ import { LoginComponent } from './login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from '../guards/auth/auth.guard';
 
-const routes: Routes = [
-  { path: 'user/login', component: LoginComponent }
-]
+const routes: Routes = [{ path: 'user/login', component: LoginComponent }];
 
 @NgModule({
-  declarations: [
-    LoginComponent
-  ],
+  declarations: [LoginComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -21,8 +17,6 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  exports: [
-    RouterModule
-  ]
+  exports: [RouterModule],
 })
-export class LoginModule { }
+export class LoginModule {}

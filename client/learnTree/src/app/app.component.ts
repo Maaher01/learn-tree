@@ -7,8 +7,6 @@ import { UserService } from './services/user/user.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  userName!: string;
-
   constructor(public userService: UserService) {}
 
   ngDoCheck(): void {

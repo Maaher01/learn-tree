@@ -5,25 +5,25 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register.component';
 import { AuthGuard } from '../guards/auth/auth.guard';
 
-import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 const routes: Routes = [
-  { path: 'user/register', component: RegisterComponent }
-]
+  {
+    path: 'user/register',
+    component: RegisterComponent,
+    // canActivate: [AuthGuard],
+  },
+];
 
 @NgModule({
-  declarations: [
-    RegisterComponent
-  ],
+  declarations: [RegisterComponent],
   imports: [
     CommonModule,
     RouterModule.forRoot(routes),
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
   ],
-  exports: [
-    RouterModule
-  ]
+  exports: [RouterModule],
 })
-export class RegisterModule { }
+export class RegisterModule {}

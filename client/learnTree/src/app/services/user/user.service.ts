@@ -31,13 +31,6 @@ export class UserService {
     );
   }
 
-  getUserInfo(id: any): Observable<any> {
-    console.log(id);
-    return this.http
-      .post<any>(this.apiUrl, { user_id: id })
-      .pipe(catchError(this.handleError));
-  }
-
   logout() {
     localStorage.removeItem('user');
     this.router.navigateByUrl('/user/login');
@@ -69,6 +62,17 @@ export class UserService {
       return JSON.parse(token);
     }
     return null;
+  }
+
+  getUserId() {
+    return JSON.parse(localStorage.getItem('user') || '{}').id;
+  }
+
+  getUserInfo(id: any): Observable<any> {
+    console.log(id);
+    return this.http
+      .post<any>(this.apiUrl, { user_id: id })
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(response: HttpErrorResponse) {

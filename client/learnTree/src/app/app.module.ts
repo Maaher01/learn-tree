@@ -8,22 +8,19 @@ import { LoginModule } from './login/login.module';
 import { HomeComponent } from './home/home.component';
 import { ForgotPasswordModule } from './forgot-password/forgot-password.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-  ],
+  declarations: [AppComponent, HomeComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RegisterModule,
     LoginModule,
     ForgotPasswordModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

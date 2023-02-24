@@ -8,6 +8,7 @@ import { UserService } from '../services/user/user.service';
 })
 export class HomeComponent {
   public currentUser: any;
+  public userInfo: any[];
 
   constructor(public userService: UserService) {}
 
@@ -24,10 +25,14 @@ export class HomeComponent {
   }
 
   getUserId() {
-    return JSON.parse(localStorage.getItem('user') || '{}').id;
+    this.userService.getUserId();
   }
 
   getUserInfo() {
-    this.userService.getUserInfo(this.currentUser.id).subscribe();
+    this.userService
+      .getUserInfo(this.currentUser.id)
+      .subscribe((res) => (this.userInfo = res));
   }
+
+  displayUserInfo() {}
 }
