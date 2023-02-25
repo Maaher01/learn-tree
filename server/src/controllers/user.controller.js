@@ -139,7 +139,6 @@ const forgotPasswordHandler = async (req, res) => {
 			email: user.email,
 			role: user.role,
 		};
-		console.log(userResponse);
 		return res.status(200).json({
 			status: "Success",
 			error: { user: userResponse },
