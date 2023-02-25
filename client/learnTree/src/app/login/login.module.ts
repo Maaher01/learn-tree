@@ -4,9 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthGuard } from '../guards/auth/auth.guard';
+import { AuthGuard } from '../guards/auth.guard';
 
-const routes: Routes = [{ path: 'user/login', component: LoginComponent }];
+const routes: Routes = [
+  {
+    path: 'user/login',
+    component: LoginComponent,
+    // canActivate: [AuthGuard],
+  },
+];
 
 @NgModule({
   declarations: [LoginComponent],

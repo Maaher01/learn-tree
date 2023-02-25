@@ -1,13 +1,15 @@
-<div class="flex flex-row">
-  <mat-card class="example-card" *ngFor="let info of userInfo$ | async">
+<div class="flex flex-row px-4 py-8 gap-6">
+  <mat-card class="bg-white w-2/12" *ngFor="let info of userInfo$ | async">
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>
+      <mat-card-title class="text-black">
         {{ info.subject_name }}
       </mat-card-title>
-      <mat-card-subtitle>
+      <mat-card-subtitle class="text-black">
         {{ info.class_name }}
       </mat-card-subtitle>
     </mat-card-header>
+    <mat-card-actions>
+      <button class="bg-cyan-900 px-3 py-2 rounded" mat-button>View Question Bank</button>
+    </mat-card-actions>
   </mat-card>
 </div>

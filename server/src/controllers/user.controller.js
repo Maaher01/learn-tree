@@ -85,6 +85,7 @@ const loginUserHandler = async (req, res) => {
 			id: user.user_id,
 			name: user.name,
 			email: user.email,
+			role: user.role,
 		};
 		return res.status(200).json({
 			status: "Success",

@@ -11,9 +11,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { MatCardModule } from '@angular/material/card';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PageNotFoundComponent],
+  declarations: [AppComponent, HomeComponent, PageNotFoundComponent, NavbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
