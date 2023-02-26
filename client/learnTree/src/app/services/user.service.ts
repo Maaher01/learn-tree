@@ -9,7 +9,7 @@ import {
   throwError,
   BehaviorSubject,
 } from 'rxjs';
-import { User } from 'src/app/models/Users';
+import { User } from 'src/app/models/user.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -82,6 +82,13 @@ export class UserService {
   }
 
   getUserInfo(id: number): Observable<any> {
+    return this.http.post<any>(this.apiUrl, { user_id: id }).pipe(
+      map((res) => res.data),
+      catchError(this.handleError)
+    );
+  }
+
+  getUserRole(id: number): Observable<any> {
     return this.http.post<any>(this.apiUrl, { user_id: id }).pipe(
       map((res) => res.data),
       catchError(this.handleError)

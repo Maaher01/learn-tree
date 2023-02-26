@@ -4,6 +4,7 @@ const {
 	getUserInfo,
 	createUser,
 	updateUserPassword,
+	getUserRole,
 } = require("../utils/user-utils");
 
 const registerUserHandler = async (req, res) => {
@@ -84,8 +85,7 @@ const loginUserHandler = async (req, res) => {
 		const userResponse = {
 			id: user.user_id,
 			name: user.name,
-			email: user.email,
-			role: user.role,
+			// role: user.role,
 		};
 		return res.status(200).json({
 			status: "Success",
@@ -95,28 +95,6 @@ const loginUserHandler = async (req, res) => {
 		res.status(500).json({
 			status: "failed",
 			error: "Failed to log in. Please try again later.",
-		});
-	}
-};
-
-const userInfoHandler = async (req, res) => {
-	const { user_id } = req.body;
-	try {
-		const userInfo = await getUserInfo(user_id);
-		if (!userInfo) {
-			return res.status(404).json({
-				status: "failed",
-				error: "User does not exist",
-			});
-		}
-		return res.status(200).json({
-			status: "Success",
-			data: userInfo,
-		});
-	} catch {
-		res.status(500).json({
-			status: "failed",
-			error: "Failed to get user info. Please try again later.",
 		});
 	}
 };
@@ -151,9 +129,57 @@ const forgotPasswordHandler = async (req, res) => {
 	}
 };
 
+const userInfoHandler = async (req, res) => {
+	const { user_id } = req.body;
+	try {
+		const userInfo = await getUserInfo(user_id);
+		if (!userInfo) {
+			return res.status(404).json({
+				status: "failed",
+				error: "User does not exist",
+			});
+		}
+		return res.status(200).json({
+			status: "Success",
+			data: userInfo,
+		});
+	} catch {
+		res.status(500).json({
+			status: "failed",
+			error: "Failed to get user info. Please try again later.",
+		});
+	}
+};
+
+const userRoleHandler = async (req, res) => {
+	const { user_id } = req.body;
+	try {
+		const userRole = await getUserRole(user_id);
+		if (!userRole) {
+			return res.status(404).json({
+				status: "failed",
+				error: "User does not exist",
+			});
+		}
+		const userResponse = {
+			role: userRole.role,
+		};
+		return res.status(200).json({
+			status: "Success",
+			data: { userRole: userResponse },
+		});
+	} catch (err) {
+		res.status(500).json({
+			ststus: "failed",
+			error: "Failed. Please try again later",
+		});
+	}
+};
+
 module.exports = {
 	registerUserHandler,
 	loginUserHandler,
-	userInfoHandler,
 	forgotPasswordHandler,
+	userInfoHandler,
+	userRoleHandler,
 };
