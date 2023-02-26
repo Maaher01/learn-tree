@@ -4,7 +4,7 @@ const {
 	getUserInfo,
 	createUser,
 	updateUserPassword,
-	getUserRole,
+	// getUserRole,
 } = require("../utils/user-utils");
 
 const registerUserHandler = async (req, res) => {
@@ -151,35 +151,35 @@ const userInfoHandler = async (req, res) => {
 	}
 };
 
-const userRoleHandler = async (req, res) => {
-	const { user_id } = req.body;
-	try {
-		const userRole = await getUserRole(user_id);
-		if (!userRole) {
-			return res.status(404).json({
-				status: "failed",
-				error: "User does not exist",
-			});
-		}
-		const userResponse = {
-			role: userRole.role,
-		};
-		return res.status(200).json({
-			status: "Success",
-			data: { userRole: userResponse },
-		});
-	} catch (err) {
-		res.status(500).json({
-			ststus: "failed",
-			error: "Failed. Please try again later",
-		});
-	}
-};
+// const userRoleHandler = async (req, res) => {
+// 	const { user_id } = req.body;
+// 	try {
+// 		const userRole = await getUserRole(user_id);
+// 		if (!userRole) {
+// 			return res.status(404).json({
+// 				status: "failed",
+// 				error: "User does not exist",
+// 			});
+// 		}
+// 		const userResponse = {
+// 			role: userRole.role,
+// 		};
+// 		return res.status(200).json({
+// 			status: "Success",
+// 			data: { userRole: userResponse },
+// 		});
+// 	} catch (err) {
+// 		res.status(500).json({
+// 			ststus: "failed",
+// 			error: "Failed. Please try again later",
+// 		});
+// 	}
+// };
 
 module.exports = {
 	registerUserHandler,
 	loginUserHandler,
 	forgotPasswordHandler,
 	userInfoHandler,
-	userRoleHandler,
+	// userRoleHandler,
 };

@@ -20,14 +20,14 @@ export class HomeComponent {
       (user) => (this.currentUser = user)
     );
     this.getUserInfo();
-    this.getUserRole();
+    // this.getUserRole();
   }
 
   getUserInfo() {
     this.userInfo$ = this.userService.getUserInfo(this.currentUser.id);
   }
 
-  getUserRole() {
-    this.userRole$ = this.userService.getUserRole(this.currentUser.id);
-  }
+  // getUserRole() {
+  //   this.userRole$ = this.userService.getUserRole(this.currentUser.id);
+  // }
 }

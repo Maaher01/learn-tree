@@ -1,18 +1,20 @@
 <div class="grid sm:grid-rows-auto md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 px-4 py-8 gap-6">
   <mat-card class="bg-white" *ngFor="let info of userInfo$ | async">
-    <mat-card-header>
-      <mat-card-title class="text-black pb-2">
-        {{ info.subject_name }}
-      </mat-card-title>
-      <mat-card-subtitle class="text-slate-600 font-medium">
-        {{ info.class_name }}
-      </mat-card-subtitle>
-    </mat-card-header>
-    <div *ngFor="let role of userRole$ | async">
-      <mat-card-actions class="grid grid-cols-auto px-2" *ngIf="role.role ==='Teacher'">
-        <button class="bg-cyan-900 px-3 py-2 rounded" mat-button>Q/A Bank</button>
-        <button class="bg-cyan-900 px-3 py-2 rounded" mat-button>New Quiz</button>
-      </mat-card-actions>
+    <div>
+      <mat-card-header>
+        <mat-card-title class="text-black pb-2">
+          {{ info.subject_name }}
+        </mat-card-title>
+        <mat-card-subtitle class="text-slate-600 font-medium">
+          {{ info.class_name }}
+        </mat-card-subtitle>
+      </mat-card-header>
     </div>
+    <!-- <div *ngFor="let role of userRole$ | async"> -->
+    <mat-card-actions class="grid grid-cols-auto px-2" *ngIf="info.role ==='Teacher'">
+      <button class="bg-cyan-900 px-3 py-2 rounded" mat-button>Q/A Bank</button>
+      <button class="bg-cyan-900 px-3 py-2 rounded" mat-button>New Quiz</button>
+    </mat-card-actions>
+    <!-- </div> -->
   </mat-card>
 </div>

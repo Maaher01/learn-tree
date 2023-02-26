@@ -88,12 +88,12 @@ export class UserService {
     );
   }
 
-  getUserRole(id: number): Observable<any> {
-    return this.http.post<any>(this.apiUrl, { user_id: id }).pipe(
-      map((res) => res.data),
-      catchError(this.handleError)
-    );
-  }
+  // getUserRole(id: number): Observable<any> {
+  //   return this.http.post<any>(this.apiUrl, { user_id: id }).pipe(
+  //     map((res) => res.data),
+  //     catchError(this.handleError)
+  //   );
+  // }
 
   private handleError(response: HttpErrorResponse) {
     let errorResponse: any = {};
