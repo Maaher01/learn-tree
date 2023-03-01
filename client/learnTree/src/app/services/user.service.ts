@@ -15,7 +15,8 @@ import { User } from 'src/app/models/user.interface';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/api/user';
+  private authUrl = 'http://localhost:3000/api/user';
+  private userUrl = 'http://localhost:3000/api/home';
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser$: Observable<User | null>;
 
@@ -27,7 +28,7 @@ export class UserService {
   }
 
   register(user: any): Observable<any> {
-    let signupUrl = `${this.apiUrl}/register`;
+    let signupUrl = `${this.authUrl}/register`;
     return this.http.post(signupUrl, user).pipe(
       tap((res: any) => {
         this.setUser(res.data.user);
@@ -37,7 +38,7 @@ export class UserService {
   }
 
   login(user: any): Observable<any> {
-    let loginUrl = `${this.apiUrl}/login`;
+    let loginUrl = `${this.authUrl}/login`;
     return this.http.post<any>(loginUrl, user).pipe(
       tap((res: any) => {
         this.setUser(res.data.user);
@@ -53,7 +54,7 @@ export class UserService {
   }
 
   resetUserPassword(payload: any) {
-    let resetPasswordUrl = `${this.apiUrl}/forgot-password`;
+    let resetPasswordUrl = `${this.authUrl}/forgot-password`;
     return this.http.put<any>(resetPasswordUrl, payload).pipe(
       tap((res: any) => {
         localStorage.removeItem('user');
@@ -82,7 +83,7 @@ export class UserService {
   }
 
   getUserInfo(id: number): Observable<any> {
-    return this.http.post<any>(this.apiUrl, { user_id: id }).pipe(
+    return this.http.post<any>(this.userUrl, { user_id: id }).pipe(
       map((res) => res.data),
       catchError(this.handleError)
     );
