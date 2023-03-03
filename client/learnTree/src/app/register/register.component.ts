@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -51,11 +51,11 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private userService: UserService
+    private authService: AuthService
   ) {}
 
   registerUser() {
-    this.userService.register(this.registerForm.value).subscribe({
+    this.authService.register(this.registerForm.value).subscribe({
       next: () => {
         this.registerForm.reset();
         this.router.navigate(['/']);

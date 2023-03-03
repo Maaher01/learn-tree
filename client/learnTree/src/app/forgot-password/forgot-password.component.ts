@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -23,14 +23,14 @@ export class ForgotPasswordComponent {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
   resetPassword() {
     const email = this.resetPasswordForm.controls['email'].value;
     const newPassword = this.resetPasswordForm.controls['password'].value;
-    this.userService.resetUserPassword({ email, newPassword }).subscribe({
+    this.authService.resetUserPassword({ email, newPassword }).subscribe({
       next: () => {
         this.errorResponse = '';
         this.resetPasswordForm.reset();

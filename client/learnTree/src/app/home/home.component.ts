@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.interface';
 
@@ -13,10 +14,13 @@ export class HomeComponent {
   public userInfo$: Observable<any>;
   public userRole$: Observable<any>;
 
-  constructor(public userService: UserService) {}
+  constructor(
+    public authService: AuthService,
+    public userService: UserService
+  ) {}
 
   ngOnInit() {
-    this.userService.currentUser$.subscribe(
+    this.authService.currentUser$.subscribe(
       (user) => (this.currentUser = user)
     );
     this.getUserInfo();
@@ -28,6 +32,6 @@ export class HomeComponent {
   }
 
   // getUserRole() {
-  //   this.userRole$ = this.userService.getUserRole(this.currentUser.id);
+  //   this.userRole$ = this.authService.getUserRole(this.currentUser.id);
   // }
 }

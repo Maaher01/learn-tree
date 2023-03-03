@@ -4,8 +4,8 @@
             <img class="mx-auto w-12" src="assets\icons\learnTree-logo.png" />
             <a class="text-2xl text-white font-medium">LearnTree</a>
         </div>
-        <div *ngIf="userService.currentUser$ | async">
-            <span class="text-slate-200 font-medium px-4">Welcome, {{ (userService.currentUser$ | async).name.split('
+        <div *ngIf="authService.currentUser$ | async">
+            <span class="text-slate-200 font-medium px-4">Welcome, {{ (authService.currentUser$ | async).name.split('
                 ')[0]
                 }}</span>
             <button class="text-cyan-900 bg-slate-200 font-medium rounded px-4 py-2 cursor-pointer" (click)="logout()">
